@@ -8,8 +8,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-
-import de.unifrankfurt.taggedtexttokenizer.TaggedTextTokenizer;
+import org.apache.commons.io.IOUtils;
+import org.apache.lucene.analysis.util.ResourceLoader;
+import org.apache.lucene.analysis.util.ResourceLoaderAware;
+import org.apache.lucene.analysis.util.TokenizerFactory;
+import org.apache.lucene.util.AttributeFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,21 +24,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.lucene.analysis.util.ResourceLoader;
-import org.apache.lucene.analysis.util.ResourceLoaderAware;
-import org.apache.lucene.analysis.util.TokenizerFactory;
-import org.apache.lucene.util.AttributeFactory;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.*;
 
 /** The factory class for the TaggedTextTokenizer.*/
 public class TaggedTextTokenizerFactory extends TokenizerFactory implements ResourceLoaderAware {
@@ -55,7 +46,7 @@ public class TaggedTextTokenizerFactory extends TokenizerFactory implements Reso
     super(args);
 
     this.searchedAttributesFiles = args.remove(SEARCH_ATTRIBUTES_FILE);
-    this.indexAll = Boolean.valueOf(args.remove(INDEX_ALL));
+    this.indexAll = Boolean.parseBoolean(args.remove(INDEX_ALL));
     this.excludeAttributesFile = args.remove(EXCLUDE_ATTRIBUTE_FILE);
 
     if (!args.isEmpty()) {
@@ -104,10 +95,5 @@ public class TaggedTextTokenizerFactory extends TokenizerFactory implements Reso
         this.excludedAttributes = new ArrayList<String>();
       }
     }
-  }
-
-  private List<String> ArrayList(String[] split) {
-    // TODO Auto-generated method stub
-    return null;
   }
 }

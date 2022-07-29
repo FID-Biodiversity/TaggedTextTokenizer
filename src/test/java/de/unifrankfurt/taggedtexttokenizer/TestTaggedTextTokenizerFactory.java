@@ -4,14 +4,13 @@
 
 package de.unifrankfurt.taggedtexttokenizer;
 
-import de.unifrankfurt.taggedtexttokenizer.TaggedTextTokenizerFactory;
+import org.apache.lucene.analysis.Tokenizer;
+import org.apache.lucene.analysis.ja.StringMockResourceLoader;
+import org.apache.lucene.analysis.util.BaseTokenStreamFactoryTestCase;
 
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
-import org.apache.lucene.analysis.Tokenizer;
-import org.apache.lucene.analysis.ja.StringMockResourceLoader;
-import org.apache.lucene.analysis.util.BaseTokenStreamFactoryTestCase;
 
 public class TestTaggedTextTokenizerFactory extends BaseTokenStreamFactoryTestCase {
   
@@ -78,8 +77,7 @@ public class TestTaggedTextTokenizerFactory extends BaseTokenStreamFactoryTestCa
   }
   
   public void testAttributeExclusion() throws Exception {
-    
-    //Reader reader = new StringReader(complexXmlString);
+
     Reader reader = new StringReader("<em class=\"times\" timexvalue=\"1909-09-09\" wikipedia-title=\"wiki-Test\">Das ist ein Test</em>");
     
     HashMap<String, String> args = new HashMap<String, String>();
@@ -100,8 +98,7 @@ public class TestTaggedTextTokenizerFactory extends BaseTokenStreamFactoryTestCa
   }
   
 public void testSentence() throws Exception {
-    
-    //Reader reader = new StringReader(complexXmlString);
+
     Reader reader = new StringReader("<ocrpage><sentence id=\"24555\">Man tritt von der Strasse von <em class=\"location_place\" "
         + "wikidata=\"http://www.wikidata.org/entity/Q180274\" wikipedia-title=\"Kathedrale_von_Chartres\">Chartres</em> aus durch"
         + " ein <em class=\"artifact\" wikidata=\"http://www.wikidata.org/entity/Q854429\" wikipedia-title=\"Portal_(Architektur)\">"
